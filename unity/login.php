@@ -1,5 +1,5 @@
 <?php
-include 'middlewares/ConnectionSettings.php';
+include '../middlewares/ConnectionSettings.php';
 
 //Check connection
 if (!$conn) {
