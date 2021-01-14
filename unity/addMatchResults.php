@@ -23,7 +23,7 @@ $sqlToUser = "UPDATE usuario
                   goles_recibidos = '$goles_recibidos'
               WHERE id_user = '$id_user'";
 
-if(mysqli_query($conn, $sql)){
+if(mysqli_query($conn, $sqlToUser)){
     echo "Información actualizada exitosamente!";
 }else {
     echo "Error, no se pudo actualizar la información del usuario!";
