@@ -44,7 +44,7 @@
                 }
             ?>
             <li class="nav-item">
-                <a href="partidas.php" class="nav-link">Historial de partidas</a>
+                <a href="partidas.php" class="nav-link">Estadísticas de partidas</a>
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link">Perfil</a>

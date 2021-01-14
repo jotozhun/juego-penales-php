@@ -5,46 +5,50 @@ include 'middlewares/ConnectionSettings.php';
 
 if($login == 1)
 {
-    if($isadmin = 1)
-        echo " <meta http-equiv='refresh' content='0; url=adminhome.php'>";
-    else
-        echo " <meta http-equiv='refresh' content='0; url=home.php'>";
-}else{
-if(isset($_POST["regUserSubmit"])){
-    //Check connection
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
-    }
+   if($isadmin = 0)
+      echo " <meta http-equiv='refresh' content='0; url=home.php'>";
+        
+   else{
+      if(isset($_POST["crearTorneoSubmit"])){
+         //Check connection
+         if (!$conn) {
+            die("Connection failed: " . mysqli_connect_error());
+         }
 
-    //variables submited by user
-    $regName = $_POST["regName"];
-    $regUser = $_POST["regUser"];
-    $regEmail = $_POST["regEmail"];
-    $regPass = $_POST['regPass'];
+         //variables submited by user
+         $nombre_torneo = $_POST["nombre_torneo"];
+         $fecha_inicio = $_POST["fecha_inicio"];
+         $fecha_fin = $_POST["fecha_fin"];
+         $num_participantes = $_POST["num_participantes"];
+         $num_goles = $_POST["num_goles"];
+         $tiempo_espera = $_POST["tiempo_espera"];
+         $tiempo_patear = $_POST["tiempo_patear"];
 
-    $sqlUser = "SELECT username from usuario where username = '$regUser'";
-    $sqlEmail = "SELECT email from usuario where email = '$regEmail'";
+         $sqlCrearTorneo = "INSERT INTO torneo (nombre_torneo,
+                                                fecha_inicio,
+                                                fecha_fin,
+                                                num_participantes,
+                                                num_goles,
+                                                tiempo_espera,
+                                                tiempo_patear) 
+                                                VALUES ('$nombre_torneo',
+                                                        '$fecha_inicio',
+                                                        '$fecha_fin',
+                                                        '$num_participantes',
+                                                        '$num_goles',
+                                                        '$tiempo_espera',
+                                                        '$tiempo_patear')";
 
-    $resultUser = mysqli_query($conn, $sqlUser);
-    $resultEmail = mysqli_query($conn, $sqlEmail);
+         if(mysqli_query($conn, $sqlCrearTorneo))
+         {
+            echo "Torneo creado exitosamente!";
+         }
+         else{
+            echo "Error en crear torneo";
+         }
 
-    if(mysqli_num_rows($resultUser) > 0){
-        echo "Este nombre de usuario ya existe! Escoja otro";
-    }else if(mysqli_num_rows($resultEmail) > 0){
-        echo "Este email ya existe! Escoja otro";
-    }else{
-        //Registrar el usuario en la base de datos
-        $sqlRegister = "INSERT INTO usuario (nombre, username, email, password) VALUES ('$regName', '$regUser', '$regEmail', '$regPass')";
-        if(mysqli_query($conn, $sqlRegister) == TRUE){
-            header("location:index.php");
-            echo "Usuario creado correctamente!";
-        }else{
-            echo "Error: " . $sqlRegister;
-        }
-    }
-
-    mysqli_close($conn);
-}
+         mysqli_close($conn);
+      }
 ?>
 
 <head>
@@ -52,7 +56,7 @@ if(isset($_POST["regUserSubmit"])){
    <!--Made with love by Mutiullah Samim -->
    <meta charset="utf-8">
    <!--Custom styles-->
-   <link rel="stylesheet" type="text/css" href="styles/login.css">
+   <link rel="stylesheet" type="text/css" href="styles/torneo.css">
 
 
    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -65,52 +69,47 @@ if(isset($_POST["regUserSubmit"])){
 
 </head>
 <body>
-<div class="container">
-      <div class="col-md-6 mx-auto text-center">
-         <div class="header-title">
-            <h1 class="wv-heading--title">
-               Registrate amigo, es gratis!!
-            </h1>
+   <div class="d-flex justify-content-around bg-primary">
+      <form action="torneo.php" method="post">
+         <h1 class="wv-heading--title pt-4">
+            Crea un torneo!
+         </h1>
+         <div class="form-group pt-4">
+            <label for="nombreTorneo">Nombre del torneo</label>
+            <input type="text" name="nombre_torneo" class="form-control" id="nombreTorneo" required>
          </div>
-      </div>
-      <div class="row">
-         <div class="col-md-4 mx-auto">
-            <div class="myform form ">
-               <form action="register.php" method="post">
-                  <div class="form-group">
-                     <input type="text" name="regName"  class="form-control my-input" placeholder="Nombre completo" required>
-                  </div>
-                  <div class="form-group">
-                    <input type="text" name="regUser"  class="form-control my-input" placeholder="Nombre de usuario" required>
-                 </div>
-                  <div class="form-group">
-                     <input type="email" name="regEmail"  class="form-control my-input" placeholder="Email" required>
-                  </div>
-                  <div class="form-group">
-                     <input type="password" min="0" name="regPass" class="form-control my-input" placeholder="Contraseña" required>
-                  </div>
-                  <div class="text-center ">
-                     <button type="submit" name= "regUserSubmit" class=" btn btn-block send-button tx-tfm">Crea una cuenta gratis</button>
-                  </div>
-                  <div class="col-md-12 ">
-                     <div class="login-or">
-                        <hr class="hr-or">
-                        <span class="span-or">¿Ya tienes una cuenta?</span>
-                     </div>
-                  </div>
-                  <div class="form-group">
-                     <a class="btn btn-block g-button" href="index.php">
-                     <i class="fa" src></i> Ir a login
-                     </a>
-                  </div>
-                  <p class="small mt-3">By signing up, you are indicating that you have read and agree to the <a href="#" class="ps-hero__content__link">Terms of Use</a> and <a href="#">Privacy Policy</a>.
-                  </p>
-               </form>
-            </div>
+         <div class="form-group">
+            <label for="inicioDateTorneo">Fecha de inicio</label>
+            <input type="datetime-local" name="fecha_inicio" class="form-control" id="inicioDateTorneo" required>
          </div>
-      </div>
+         <div class="form-group">
+            <label for="finalDateTorneo">Fecha fin</label>
+            <input type="datetime-local" name="fecha_fin" class="form-control" id="finalDateTorneo" required>
+         </div>
+         <div class="form-group">
+            <label for="maxParticipantes">Máximo número de participantes</label>
+            <input type="number" name="num_participantes" class="form-control" id="maxParticipantes" min="0" required>
+         </div>
+         <div class="form-group">
+            <label for="numGoles">Número de goles por partido</label>
+            <input type="number" name="num_goles" class="form-control" id="numGoles" min="0" max="10" required>
+         </div>
+         <div class="form-group">
+            <label for="tiempoPresentarse">Tiempo de espera para presentarse</label>
+            <input placeholder="minutos" name="tiempo_espera" type="number" class="form-control" id="tiempoPresentarse" min="0" required>
+         </div>
+         <div class="form-group">
+            <label for="tiempoPatear">Tiempo de espera para patear el balón</label>
+            <input placeholder="segundos" name="tiempo_patear" type="number" class="form-control" id="tiempoPatear" min="0" required>
+         </div>
+         <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+         </div>
+         <button type="submit" name="crearTorneoSubmit" class="btn btn-dark w-100">Crear</button>
+      </form>
    </div>
 </body>
 <?php
-}
+}}
 ?>

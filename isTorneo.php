@@ -33,16 +33,8 @@ if(mysqli_num_rows($resultTorneo) > 0)
     
     echo '
     <div class="row">
-        <div class="col-md-4 mx-auto">
-            <div class="myform form ">
-                <form>
-                    <div class="form-group">
-                        <a class="btn btn-block g-button" href="#">
-                            <i class="fa"></i>Regístrate al torneo '. $rows[0]["nombre_torneo"] .'!
-                        </a>
-                    </div>
-                </form>
-            </div>
+        <div class="col-md-6 mx-auto">
+            <button class="btn bg-info">Regístrate al torneo '. $rows[0]["nombre_torneo"] .'!</button>
         </div>
     </div>
     ';

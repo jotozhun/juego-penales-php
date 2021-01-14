@@ -30,13 +30,11 @@
 ?>
 <div class="view">
     <div class="col-md-6 mx-auto text-center">
-        <div class="header-title">
-            <h1 class="wv-heading--title">
+            <h1 class="wv-heading--title mb-5 pt-3">
                 <?php
                     echo "Bienvenido " . $_COOKIE["username"] . "!";
                 ?>
             </h1>
-        </div>
     </div>
 </div>
     </body>
