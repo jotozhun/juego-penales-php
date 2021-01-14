@@ -12,3 +12,17 @@ header{
     -o-background-size: cover;
     background-size: cover;
 }
+
+.header-title{
+    margin: 5rem 0;
+}
+
+.g-button{
+    color: #fff !important;
+    border: 1px solid #000000;
+    background: #ff2d1a !important;
+    width:100%;
+    font-weight: 600;
+    color:#fff;
+    padding: 8px 25px;
+}

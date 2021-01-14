@@ -35,6 +35,7 @@ if($login == 1)
             $row = mysqli_fetch_array($resultInfo);
 
             setcookie('id_user', $row["id_user"], time() + (3600*24));
+            setcookie('username', $row["username"], time() + (3600*24));
             setcookie('login', 1, time() + (3600*24));
 
             if($row["isadmin"] == 0){

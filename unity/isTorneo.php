@@ -1,5 +1,5 @@
 <?php
-require "../middlewares/ConnectionSettings.php";
+require "../middlewares/unityConnectionSettings.php";
 
 //Check connection
 if (!$conn) {

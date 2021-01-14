@@ -3,6 +3,8 @@
     if($login == 0){
         echo " <meta http-equiv='refresh' content='0; url=index.php'>";
     }else{
+
+    
 ?>
 
 <head>
@@ -27,7 +29,15 @@
     include("navbar.php");
 ?>
 <div class="view">
-        
+    <div class="col-md-6 mx-auto text-center">
+        <div class="header-title">
+            <h1 class="wv-heading--title">
+                <?php
+                    echo "Bienvenido " . $_COOKIE["username"] . "!";
+                ?>
+            </h1>
+        </div>
+    </div>
 </div>
     </body>
 <?php

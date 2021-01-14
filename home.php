@@ -2,6 +2,8 @@
     include 'middlewares/ConnectionSettings.php';
     if($login == 0){
         echo " <meta http-equiv='refresh' content='0; url=index.php'>";
+    }else if($isadmin == 1 && $login == 1){
+        echo " <meta http-equiv='refresh' content='0; url=adminhome.php'>";
     }else{
 ?>
 
@@ -27,7 +29,19 @@
 ?>
 
 <div class="view">
+    <div class="container">
+    <div class="col-md-6 mx-auto text-center">
+        <div class="header-title">
+            <h1 class="wv-heading--title">
+                <?php
+                    echo "Bienvenido " . $_COOKIE["username"] . "!";
+                    include("isTorneo.php");
+                ?>
+            </h1>
+        </div>
+    </div>
     
+    </div>
 </div>
     </body>
 <?php
